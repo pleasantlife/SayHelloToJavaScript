@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>마니또</title>
+
+</head>
+<body>
+    <script src = "./test.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC7X6X1vsFeQ9QF8bMPrCtmN_aszZwq-ZA",
+    authDomain: "manitto-be093.firebaseapp.com",
+    databaseURL: "https://manitto-be093.firebaseio.com",
+    projectId: "manitto-be093",
+    storageBucket: "manitto-be093.appspot.com",
+    messagingSenderId: "629925327456"
+  };
+  firebase.initializeApp(config);
+
+  function getRandom(max, min) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+  
+  var database = firebase.database();
+  var reference = firebase.database().ref("list");
+  reference.on('value', function(snapshot) {
+      getMember(snapshot);
+  });
+
+  function getMember(snapshot){
+      var member = [];
+      snapshot.forEach(function(element){
+          member.push(element.val());
+      });
+      console.log(member[getRandom(0,member.length)]);
+  }
+
+
+</script>
+</body>
+</html>
